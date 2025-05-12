@@ -9,6 +9,8 @@
 <footer
 	class="mb-5 mt-12 flex flex-col-reverse items-center justify-between gap-3 text-xs leading-5 text-slate-600 sm:flex-row [&_a]:underline"
 >
-	<div>Powered by <a href={HAKUBA_GITHUB_URL}>Hakuba</a></div>
+	<div>
+		Powered by <a href={HAKUBA_GITHUB_URL} target="_blank" rel="noopener noreferrer">Hakuba</a>
+	</div>
 	<Nav class="text-xs" {pages} />
 </footer>

@@ -1,5 +1,3 @@
-export const HAKUBA_GITHUB_URL = 'https://github.com/YeungKC/Hakuba';
-
 const env = import.meta.env;
 
 export const USER_NAME = env.VITE_NAME;
@@ -19,5 +17,6 @@ export const LANGUAGE = env.VITE_LANGUAGE || 'en';
 export const COMMENT = env.VITE_COMMENT || true;
 export const TIMEZONE = env.VITE_TIMEZONE || 'GMT';
 
+export const HAKUBA_GITHUB_URL = `https://github.com/${USER_NAME}/Hakuba`;
 export const REPOSITORY_URL = `https://github.com/${USER_NAME}/${REPOSITORY}`;
 export const REPOSITORY_ISSUES_URL = `${REPOSITORY_URL}/issues`;
