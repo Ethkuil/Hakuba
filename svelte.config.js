@@ -1,6 +1,7 @@
 import adapter from '@sveltejs/adapter-static';
 import preprocess from 'svelte-preprocess';
 import { mdsvex } from 'mdsvex';
+import remarkGfm from 'remark-gfm'
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeExternalLinks from 'rehype-external-links';
@@ -23,6 +24,9 @@ const config = {
 			highlight: {
 				alias: { vue: 'html' }
 			},
+			remarkPlugins: [
+				remarkGfm,
+			],
 			rehypePlugins: [
 				rehypeSlug,
 				rehypeAutolinkHeadings,
