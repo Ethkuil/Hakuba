@@ -5,6 +5,10 @@ import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeExternalLinks from 'rehype-external-links';
 import addClasses from 'rehype-add-classes';
+import remarkFootnotes from 'remark-footnotes';
+
+import dotenv from 'dotenv';
+dotenv.config();
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -23,6 +27,7 @@ const config = {
 			highlight: {
 				alias: { vue: 'html' }
 			},
+			remarkPlugins: [remarkFootnotes],
 			rehypePlugins: [
 				rehypeSlug,
 				rehypeAutolinkHeadings,
