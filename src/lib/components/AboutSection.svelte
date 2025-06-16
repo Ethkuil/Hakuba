@@ -13,6 +13,10 @@
 <section class="mt-4 flex flex-col gap-4">
 	<p>{BIO}</p>
 
+	<div>
+	目前这个博客框架不足之处很多，之后可能换个，目前暂且将就。
+	</div>
+
 	Find me on:
 	<ul class="flex list-disc flex-col gap-1 pl-5">
 		{#each Object.entries(medias) as [name, url]}
