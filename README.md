@@ -2,6 +2,8 @@
 
 # Hakuba
 
+MDsveX is A PILE OF OBSOLETE SHIT. I struggled to support remark-gfm but failed at last. FUCK IT! Maybe I'll switch to another framework in the future.
+
 [中文版介绍](https://yeungkc.com/post/3)
 
 > Hakuba (白馬村 , Hakuba-mura) is a village located in Nagano Prefecture, Japan.
