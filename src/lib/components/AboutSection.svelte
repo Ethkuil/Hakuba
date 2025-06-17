@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { BIO, EMAIL, GITHUB_URL } from '$lib/constants';
+	import { BIO, EMAIL, GITHUB_URL, REPOSITORY_URL } from '$lib/constants';
 
 	let medias = {
 		'Email': `mailto:${EMAIL}`,
@@ -14,7 +14,12 @@
 	<p>{BIO}</p>
 
 	<div>
-	目前这个博客框架不足之处很多，之后可能换个，目前暂且将就。
+		目前这个博客框架不足之处很多，之后可能换个，目前暂且将就。数据存储于 <a
+			href={`${REPOSITORY_URL}/discussions`}
+			target="_blank"
+			rel="noopener noreferrer"
+			class="text-blue-500 hover:underline">GitHub Discussions</a
+		>；某些本站目前欠缺的功能也可前往此处，比如「搜索」。
 	</div>
 
 	Find me on:
