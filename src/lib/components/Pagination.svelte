@@ -39,7 +39,7 @@
 </script>
 
 <nav class="mt-8 flex flex-row items-center gap-2 self-center text-slate-600">
-	<div class="flex items-center rounded-lg border border-slate-200 bg-white shadow-sm">
+	<div class="flex items-center rounded-lg border border-slate-200 bg-white shadow-xs">
 		<!-- 首页 -->
 		<a
 			sveltekit:prefetch
@@ -77,7 +77,7 @@
 				on:blur={handleBlur}
 				min="1"
 				max={totalPages}
-				class="h-9 w-16 border-none text-center focus:outline-none"
+				class="h-9 w-16 border-none text-center focus:outline-hidden"
 			/>
 		{:else}
 			<button on:click={() => (isEditing = true)} class="h-9 w-16 text-center hover:bg-slate-50">
