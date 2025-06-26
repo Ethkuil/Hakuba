@@ -1,6 +1,10 @@
 <script lang="ts">
 	import clsx from 'clsx';
-	import { ChevronsLeft, ChevronsRight, ChevronLeft, ChevronRight } from 'lucide-svelte';
+	// [Importing any component from lucide-svelte makes dev app reload 10 times slower · Issue #2806 · lucide-icons/lucide](https://github.com/lucide-icons/lucide/issues/2806)
+	import ChevronsLeft from 'lucide-svelte/icons/chevrons-left';
+	import ChevronsRight from 'lucide-svelte/icons/chevrons-right';
+	import ChevronLeft from 'lucide-svelte/icons/chevron-left';
+	import ChevronRight from 'lucide-svelte/icons/chevron-right';
 
 	export let currentPage = 1;
 	export let pageSize = 10;
