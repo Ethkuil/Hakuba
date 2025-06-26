@@ -6,20 +6,11 @@ module.exports = {
 		container: {
 			center: true
 		},
-		extend: {
-			typography: {
-				DEFAULT: {
-					css: {
-						maxWidth: '80ch',
-					},
-				},
-			},
-		}
+		extend: {}
 	},
 	plugins: [
 		({ addVariant }) => {
 			addVariant('child', '& > *');
 		},
-		require('@tailwindcss/typography')
 	]
 };
