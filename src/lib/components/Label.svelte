@@ -13,7 +13,7 @@
 </script>
 
 <a
-	class={clsx('!font-normal', selected === label && 'underline')}
+	class={clsx('font-normal!', selected === label && 'underline')}
 	href={selected === label || selected === label?.[0] ? '/' : `/label/${label}`}
 	>#{label}{count ? `(${count})` : ''}</a
 >

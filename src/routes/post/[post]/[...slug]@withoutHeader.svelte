@@ -62,7 +62,7 @@
 			{metadata.title}
 		</Header>
 		<div
-			class="flex flex-col justify-center [&_*]:!text-sm [&_*]:!font-normal [&_*]:!text-slate-600 "
+			class="flex flex-col justify-center **:text-sm! **:font-normal! **:text-slate-600! "
 		>
 			<div class=" mt-4 self-start border-t border-t-slate-900 pt-2">
 				Published: {published}
