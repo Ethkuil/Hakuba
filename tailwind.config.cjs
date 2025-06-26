@@ -6,7 +6,15 @@ module.exports = {
 		container: {
 			center: true
 		},
-		extend: {}
+		extend: {
+			typography: {
+				DEFAULT: {
+					css: {
+						maxWidth: '80ch',
+					},
+				},
+			},
+		}
 	},
 	plugins: [
 		({ addVariant }) => {
