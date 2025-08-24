@@ -36,7 +36,7 @@
 	{/if}
 </svelte:head>
 
-<main class="flex flex-grow flex-col">
+<main class="flex grow flex-col">
 	<slot />
 </main>
 
