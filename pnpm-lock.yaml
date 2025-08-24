@@ -65,6 +65,9 @@ importers:
       feed:
         specifier: ^4.2.2
         version: 4.2.2
+      lucide-svelte:
+        specifier: ^0.510.0
+        version: 0.510.0(svelte@3.59.2)
       mdsvex:
         specifier: ^0.11.0
         version: 0.11.0(svelte@3.59.2)
@@ -1172,6 +1175,11 @@ packages:
   lru-cache@6.0.0:
     resolution: {integrity: sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==}
     engines: {node: '>=10'}
+
+  lucide-svelte@0.510.0:
+    resolution: {integrity: sha512-xlXtd1SIiKjUNlmP9j8jtNRpvl+BrEX8zYRry/sEjdUU2eSthbmdKhlyGZmP+HEMbxYz1Si+Aq30jqafLdErNQ==}
+    peerDependencies:
+      svelte: ^3 || ^4 || ^5.0.0-next.42
 
   magic-string@0.26.2:
     resolution: {integrity: sha512-NzzlXpclt5zAbmo6h6jNc8zl2gNRGHvmsZW4IvZhTC4W7k4OlLP+S5YLussa/r3ixNT66KOQfNORlXHSOy/X4A==}
@@ -2764,6 +2772,10 @@ snapshots:
   lru-cache@6.0.0:
     dependencies:
       yallist: 4.0.0
+
+  lucide-svelte@0.510.0(svelte@3.59.2):
+    dependencies:
+      svelte: 3.59.2
 
   magic-string@0.26.2:
     dependencies:
