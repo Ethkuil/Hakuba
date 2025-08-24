@@ -6,7 +6,7 @@ export const USER_NAME = env.VITE_NAME;
 export const GITHUB_URL = env.VITE_GITHUB_URL;
 
 // Configurable
-export const PAGE_SIZE = env.VITE_PAGE_SIZE || 10;
+export const PAGE_SIZE = env.VITE_PAGE_SIZE || 20;
 export const BLOG_NAME = env.VITE_BLOG_NAME || `${USER_NAME}'s Blog`;
 export const BIO = env.VITE_BIO || env.VITE_DESCRIPTION;
 export const EMAIL = env.VITE_EMAIL;
