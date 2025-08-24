@@ -20,14 +20,23 @@
 
 			const metadata = post.metadata;
 
-			const timezone = metadata.timezone;
+			// allow UTF-8 characters in the slug
+			const expectedSlug = metadata.title.trim().replace(/\s+/g, '-').slice(0, 50).toLowerCase();
+			// slug may contain slashes, where we only take the first part
+			const currentSlug = decodeURIComponent(params.slug.split('/')[0]);
+			if (currentSlug !== expectedSlug) {
+				return {
+					status: 308,
+					redirect: `/post/${params.post}/${encodeURIComponent(expectedSlug)}`
+				};
+			}
 
 			return {
 				props: {
 					...post,
 					labels: metadata.labels?.map(({ name }) => name),
-					published: readableDate(metadata.published, timezone),
-					updated: metadata.updated ? readableDate(metadata.updated, timezone) : undefined
+					published: readableDate(metadata.published, metadata.timezone),
+					updated: metadata.updated ? readableDate(metadata.updated, metadata.timezone) : undefined
 				}
 			};
 		} catch {
