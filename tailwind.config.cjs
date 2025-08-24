@@ -12,6 +12,5 @@ module.exports = {
 		({ addVariant }) => {
 			addVariant('child', '& > *');
 		},
-		require('@tailwindcss/typography')
 	]
 };

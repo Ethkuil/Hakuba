@@ -1,10 +1,13 @@
+<svelte:head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.8.1/github-markdown-light.min.css">
+</svelte:head>
+
 <script lang="ts">
-	import '../../code.css';
 	export let lang: string | undefined = undefined;
 </script>
 
 <article
-	class="prose prose-slate prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg  prose-table:block prose-table:overflow-auto"
+	class="markdown-body bg-slate-50! prose-h1:text-2xl!"
 	{lang}
 >
 	<slot />
