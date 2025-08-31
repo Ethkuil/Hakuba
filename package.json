@@ -3,17 +3,17 @@
 	"version": "0.0.2",
 	"scripts": {
 		"dev": "vite dev",
-		"generateData": "node --loader ts-node/esm .scripts/pre/index.ts",
-		"build": "node --loader ts-node/esm .scripts/pre/index.ts && vite build && node --loader ts-node/esm .scripts/post/index.ts",
-		"report": "node --loader ts-node/esm .scripts/pre/index.ts && vite build && ts-node .scripts/post/index.ts",
+		"generateData": "tsx .scripts/pre/index.ts",
+		"build": "tsx .scripts/pre/index.ts && vite build && tsx .scripts/post/index.ts",
+		"report": "tsx .scripts/pre/index.ts && vite build && ts-node .scripts/post/index.ts",
 		"package": "svelte-kit package",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync",
 		"check": "svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
-		"lint": "prettier --check --plugin-search-dir=. . && eslint .",
-		"format": "prettier --write --plugin-search-dir=. .",
-		"source": "node --loader ts-node/esm src/lib/preSource/index.ts"
+		"lint": "standard --fix",
+		"format": "standard --fix",
+		"source": "tsx src/lib/preSource/index.ts"
 	},
 	"devDependencies": {
 		"@fortawesome/fontawesome-free": "^6.5.1",
@@ -46,6 +46,7 @@
 		"tailwindcss": "^4.1.11",
 		"ts-node": "^10.9.2",
 		"tslib": "^2.6.2",
+		"tsx": "^4.20.5",
 		"typescript": "^5.3.3",
 		"vite": "^2.9.18",
 		"yaml": "^2.4.0"
