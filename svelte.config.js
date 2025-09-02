@@ -35,7 +35,6 @@ const config = {
         [rehypeExternalLinks, { target: '_blank' }],
         [addClasses, { 'h1,h2,h3,h4,h5,h6': 'group' }]
       ],
-      layout: 'src/routes/__layout-md.svelte'
     })
   ],
 

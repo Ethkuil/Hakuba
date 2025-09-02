@@ -76,7 +76,9 @@
 		</div>
 	</header>
 
-	<svelte:component this={component} />
-
+	<!-- <svelte:component this={component} /> -->
+	<Article lang={metadata.lang}>
+		{@html html}
+	</Article>
 	<Giscus config={metadata} />
 </Article>
