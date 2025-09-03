@@ -44,7 +44,6 @@ const config = {
     prerender: {
       default: true
     },
-    trailingSlash: 'always',
     inlineStyleThreshold: 1024 * 32
   }
 }
