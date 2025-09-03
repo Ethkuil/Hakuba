@@ -3,6 +3,7 @@ import { convertFrontMatter } from './converter.js';
 import { fetchUser, fetchAllDiscussions } from './fetcher.js';
 import { findConfig, filterPage as filterPage, filterPost } from './filter.js';
 import { writePosts, writePages, writeEnv } from './writer.js';
+import { buildMarkdownFiles } from './markdown.js';
 
 dotenv.config();
 const env = process.env;
@@ -44,5 +45,9 @@ console.log(`writing...`);
 await writePosts(posts);
 await writePages(pages);
 await writeEnv(config);
+
+console.log(`building markdown files...`);
+await buildMarkdownFiles('./src/routes/post/_source');
+await buildMarkdownFiles('./src/routes/_page');
 
 console.log(`done`);

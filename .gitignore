@@ -12,5 +12,5 @@ report.html
 
 /src/routes/post/_source
 
-/src/routes/_page/*.md
+/src/routes/_page/*
 !/src/routes/_page/__error.md
