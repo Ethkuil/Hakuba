@@ -1,4 +1,4 @@
-import { fetchPosts } from '$lib/helper/fetchPosts';
+import { fetchPostsMeta } from '$lib/helper/fetchPosts';
 import { Feed } from 'feed';
 import { BIO, BLOG_NAME, DOMAIN, EMAIL, USER_NAME } from '$lib/constants';
 
@@ -9,7 +9,7 @@ export const get = async () => {
 			redirect: '/'
 		};
 	}
-	const posts = await fetchPosts();
+	const posts = await fetchPostsMeta({ limit: 20 });
 	const last = posts.list.sort(
 		(a, b) =>
 			new Date(b.metadata.updated || b.metadata.published).valueOf() -

@@ -3,11 +3,11 @@
 	import Footer from '$lib/components/Footer.svelte';
 	import { BLOG_NAME, DESCRIPTION, KEYWORDS, TWITTER } from '$lib/constants';
 	import type { Load } from '@sveltejs/kit';
-	import { fetchPages } from '$lib/helper/fetchPage';
+	import { fetchPagesMeta } from '$lib/helper/fetchPage';
 	import type Page from '$lib/types/page';
 
 	export const load: Load = async ({ params }) => {
-		const pages = await fetchPages();
+		const pages = await fetchPagesMeta();
 		return {
 			props: {
 				pages: pages.map(({ metadata }) => metadata)

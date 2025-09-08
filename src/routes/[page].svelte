@@ -1,10 +1,10 @@
 <script context="module" lang="ts">
 	import type { Load } from '@sveltejs/kit';
-	import type { SvelteComponent } from 'svelte';
 	import { fetchPage } from '$lib/helper/fetchPage';
 	import type Page from '$lib/types/page';
 	import Giscus from '$lib/components/Giscus.svelte';
 	import PageMeta from '$lib/components/PageMeta.svelte';
+    import Article from '$lib/components/Article.svelte';
 
 	export const load: Load = async ({ params: { page } }) => {
 		const p = await fetchPage(page);
@@ -12,20 +12,21 @@
 
 		return {
 			props: {
-				metadata: p.metadata as Page,
-				component: p.component
+				...p
 			}
 		};
 	};
 </script>
 
 <script lang="ts">
-	export let component: SvelteComponent;
+	export let html: string;
 	export let metadata: Page;
 </script>
 
 <PageMeta {metadata} />
 
-<svelte:component this={component} />
+<Article lang={metadata.lang}>
+	{@html html}
+</Article>
 
 <Giscus config={metadata} />

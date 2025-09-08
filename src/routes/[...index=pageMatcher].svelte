@@ -2,7 +2,7 @@
 	import type { Load } from '@sveltejs/kit';
 	import type Post from '$lib/types/post';
 	import { BLOG_NAME, PAGE_SIZE } from '$lib/constants';
-	import { fetchPosts, fetchLabels } from '$lib/helper/fetchPosts';
+	import { fetchLabels, fetchPostsMeta } from '$lib/helper/fetchPosts';
 	import LabelsSection from '$lib/components/LabelsSection.svelte';
 	import PostsSection from '$lib/components/PostsSection.svelte';
 	import Pagination from '$lib/components/Pagination.svelte';
@@ -16,7 +16,7 @@
 		currentPage = (Number.isFinite(currentPage) && currentPage) || 1;
 
 		const [{ list, count: totalCount }, labels] = await Promise.all([
-			fetchPosts({
+			fetchPostsMeta({
 				label: label,
 				offset: (currentPage - 1) * PAGE_SIZE,
 				limit: PAGE_SIZE

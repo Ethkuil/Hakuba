@@ -1,11 +1,5 @@
 import adapter from '@sveltejs/adapter-static'
 import preprocess from 'svelte-preprocess'
-import { mdsvex } from 'mdsvex'
-import rehypeSlug from 'rehype-slug'
-import rehypeAutolinkHeadings from 'rehype-autolink-headings'
-import rehypeExternalLinks from 'rehype-external-links'
-import addClasses from 'rehype-add-classes'
-import remarkFootnotes from 'remark-footnotes'
 
 // necessary for remark-footnotes to work but not sure why
 import dotenv from 'dotenv'
@@ -23,20 +17,6 @@ const config = {
       preserve: ['ld+json'],
       postcss: true
     }),
-    mdsvex({
-      extensions: ['.md'],
-      highlight: {
-        alias: { vue: 'html' }
-      },
-      remarkPlugins: [remarkFootnotes],
-      rehypePlugins: [
-        rehypeSlug,
-        rehypeAutolinkHeadings,
-        [rehypeExternalLinks, { target: '_blank' }],
-        [addClasses, { 'h1,h2,h3,h4,h5,h6': 'group' }]
-      ],
-      layout: 'src/routes/__layout-md.svelte'
-    })
   ],
 
   kit: {

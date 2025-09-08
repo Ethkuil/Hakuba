@@ -1,39 +1,49 @@
 import type Post from '$lib/types/post';
-import type { SvelteComponent } from 'svelte';
 
-export const fetchPosts = async ({
-	offset,
-	limit,
-	label
-}: { offset?: number; limit?: number; label?: string } = {}) => {
+export interface PostModule {
+	metadata: Post;
+	html: string;
+}
+
+export interface FetchPostsOptions {
+	offset?: number;
+	limit?: number;
+	label?: string;
+}
+
+async function _fetchPosts<T extends boolean>(options: FetchPostsOptions = {}, metadataOnly: T) {
+	const { offset, limit, label } = options;
 	let allPosts = (
 		await Promise.all(
-			Object.entries(import.meta.glob('../../routes/post/_source/*.md')).map(async ([, page]) => {
-				const { metadata, default: component } = await page();
-				return {
-					metadata: metadata as Post,
-					component: component as SvelteComponent
-				};
-			})
+			Object.entries(import.meta.glob('../../routes/post/_source/*.js')).map(
+				async ([, loader]) => {
+					const module = (await loader()) as PostModule;
+					// return metadataOnly ? { metadata: module.metadata } : module;
+					return metadataOnly ? { metadata: module.metadata } : module;
+				}
+			)
 		)
-	).sort(
-		(a, b) => new Date(b.metadata.published).valueOf() - new Date(a.metadata.published).valueOf()
+	) as (T extends true ? { metadata: Post } : PostModule)[];
+
+	// sort by published date desc
+	allPosts = allPosts.sort(
+		(a, b) => new Date(b.metadata.published).getTime() - new Date(a.metadata.published).getTime()
 	);
 
+	// filter
 	if (label) {
 		allPosts = allPosts.filter((post) =>
-			post.metadata.labels?.map(({ name }) => name)?.includes(label)
+			post.metadata.labels?.some(({ name }) => name === label)
 		);
 	}
 
 	const count = allPosts.length;
 
-	if (offset) {
-		allPosts = allPosts.slice(offset);
-	}
-
-	if (limit && limit < allPosts.length) {
-		allPosts = allPosts.slice(0, limit);
+	// apply pagination
+	if (offset || limit) {
+		const start = offset ?? 0;
+		const end = limit ? start + limit : undefined;
+		allPosts = allPosts.slice(start, end);
 	}
 
 	return {
@@ -42,25 +52,51 @@ export const fetchPosts = async ({
 	};
 };
 
+export const fetchPosts = async ({ offset, limit, label }: FetchPostsOptions = {}) => {
+	return _fetchPosts({ offset, limit, label }, false);
+}
+
+export const fetchPostsMeta = async ({ offset, limit, label }: FetchPostsOptions = {}) => {
+	return _fetchPosts({ offset, limit, label }, true);
+}
+
 export const fetchLabels = async () => {
-	const { list } = await fetchPosts();
-	const flatted = list
-		.map((e) => e.metadata.labels?.map(({ name }) => name) ?? [])
-		.flat(Infinity) as string[];
+	const { list } = await fetchPostsMeta();
+	const labelCounts = new Map<string, number>();
 
-	const labels = Object.entries(
-		flatted.reduce((acc, cur) => {
-			acc[cur] = (acc[cur] ?? 0) + 1;
-			return acc;
-		}, {} as { [index: string]: number })
-	);
+	for (const post of list) {
+		const labels = post.metadata.labels;
+		if (labels) {
+			for (const { name } of labels) {
+				labelCounts.set(name, (labelCounts.get(name) ?? 0) + 1);
+			}
+		}
+	}
 
-	return labels.sort((a, b) => b[1] - a[1]);
+	return Array.from(labelCounts.entries()).sort((a, b) => b[1] - a[1]);
 };
 
+// path is number ID or custom path
 export const fetchPost = async (path: string) => {
-	const { list } = await fetchPosts();
-	return list.find(
-		({ metadata: { number, path: identifyPath } }) => identifyPath === path || `${number}` === path
-	);
+	if (/^\d+$/.test(path)) {
+		// number ID
+		try {
+			const module = await import(`../../routes/post/_source/${path}.js`) as PostModule;
+			return module;
+		} catch {
+			return undefined;
+		}
+	}
+
+	// custom path
+	const { list } = await fetchPostsMeta();
+	const post = list.find(({ metadata }) => metadata.path === path);
+	if (!post) return undefined;
+
+	try {
+		const module = await import(`../../routes/post/_source/${post.metadata.number}.js`) as PostModule;
+		return module;
+	} catch {
+		return undefined;
+	}
 };
