@@ -18,6 +18,7 @@ import rehypeSlug from 'rehype-slug'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeExternalLinks from 'rehype-external-links'
 import rehypeAddClasses from 'rehype-add-classes';
+import { rehypeGithubAlerts } from 'rehype-github-alerts';
 
 const processor = unified()
   .use(remarkParse)
@@ -30,6 +31,8 @@ const processor = unified()
   .use(rehypeAutolinkHeadings)
   .use(rehypeExternalLinks, { target: '_blank' })
   .use(rehypeAddClasses, { 'h1,h2,h3,h4,h5,h6': 'group' })
+  // @ts-ignore
+  .use(rehypeGithubAlerts)
   .use(rehypeStringify, { allowDangerousHtml: true });
 
 async function processMarkdown(content: string) {
