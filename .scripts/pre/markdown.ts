@@ -10,6 +10,7 @@ import rehypeStringify from 'rehype-stringify'
 // remark plugins
 import remarkFrontmatter from 'remark-frontmatter';
 import remarkParseFrontmatter from 'remark-parse-frontmatter';
+import remarkGfm from 'remark-gfm';
 
 // rehype plugins
 import rehypeSlug from 'rehype-slug'
@@ -21,6 +22,7 @@ const processor = unified()
   .use(remarkParse)
   .use(remarkFrontmatter)
   .use(remarkParseFrontmatter)
+  .use(remarkGfm)
   .use(remarkRehype, { allowDangerousHtml: true })
   .use(rehypeSlug)
   .use(rehypeAutolinkHeadings)
