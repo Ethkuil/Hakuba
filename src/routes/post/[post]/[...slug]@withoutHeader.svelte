@@ -1,6 +1,5 @@
 <script context="module" lang="ts">
 	import type { Load } from '@sveltejs/kit';
-	import type { SvelteComponent } from 'svelte';
 	import Header from '$lib/components/Header.svelte';
 	import type Post from '$lib/types/post';
 	import Article from '$lib/components/Article.svelte';
@@ -46,8 +45,8 @@
 </script>
 
 <script lang="ts">
-	export let component: SvelteComponent;
 	export let metadata: Post;
+	export let html: string;
 	export let labels: string[] | undefined;
 	export let published: string | undefined;
 	export let updated: string | undefined;
@@ -76,7 +75,8 @@
 		</div>
 	</header>
 
-	<svelte:component this={component} />
-
+	<Article lang={metadata.lang}>
+		{@html html}
+	</Article>
 	<Giscus config={metadata} />
 </Article>
