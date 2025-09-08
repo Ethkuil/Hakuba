@@ -29,7 +29,7 @@ const processor = unified()
   .use(remarkRehype, { allowDangerousHtml: true })
   .use(rehypeSlug)
   .use(rehypeAutolinkHeadings)
-  .use(rehypeExternalLinks, { target: '_blank' })
+  .use(rehypeExternalLinks, { target: '_blank', rel: ['nofollow', 'noopener', 'noreferrer'] })
   .use(rehypeAddClasses, { 'h1,h2,h3,h4,h5,h6': 'group' })
   // @ts-ignore
   .use(rehypeGithubAlerts)
