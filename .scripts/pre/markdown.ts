@@ -19,6 +19,8 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeExternalLinks from 'rehype-external-links'
 import rehypeAddClasses from 'rehype-add-classes';
 import { rehypeGithubAlerts } from 'rehype-github-alerts';
+import rehypePrettyCode from 'rehype-pretty-code';
+import { transformerCopyButton } from '@rehype-pretty/transformers'
 
 const processor = unified()
   .use(remarkParse)
@@ -33,6 +35,11 @@ const processor = unified()
   .use(rehypeAddClasses, { 'h1,h2,h3,h4,h5,h6': 'group' })
   // @ts-ignore
   .use(rehypeGithubAlerts)
+  .use(rehypePrettyCode, {
+    transformers: [
+      transformerCopyButton(),
+    ]
+  })
   .use(rehypeStringify, { allowDangerousHtml: true });
 
 async function processMarkdown(content: string) {
