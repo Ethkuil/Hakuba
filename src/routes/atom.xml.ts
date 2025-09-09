@@ -1,6 +1,6 @@
-import { fetchPostsMeta } from '$lib/helper/fetchPosts';
+import { fetchPosts } from '$lib/helper/fetchPosts';
 import { Feed } from 'feed';
-import { BIO, BLOG_NAME, DOMAIN, EMAIL, USER_NAME } from '$lib/constants';
+import { BIO, BLOG_NAME, DOMAIN, EMAIL, USER_NAME, LANGUAGE } from '$lib/constants';
 
 export const get = async () => {
 	if (!DOMAIN) {
@@ -9,7 +9,7 @@ export const get = async () => {
 			redirect: '/'
 		};
 	}
-	const posts = await fetchPostsMeta({ limit: 20 });
+	const posts = await fetchPosts({ limit: 20 });
 	const last = posts.list.sort(
 		(a, b) =>
 			new Date(b.metadata.updated || b.metadata.published).valueOf() -
@@ -18,11 +18,12 @@ export const get = async () => {
 	const feed = new Feed({
 		id: DOMAIN,
 		title: BLOG_NAME,
+		link: DOMAIN,
+		language: LANGUAGE,
 		description: BIO,
-		copyright: `Copyright © ${new Date().getFullYear()} ${BLOG_NAME}. All Rights Reserved`,
-		generator: 'Hakuba',
+		copyright: `All rights reserved ${new Date().getFullYear()}, ${USER_NAME}`,
 		updated: new Date(last?.metadata.updated || last?.metadata.published || new Date()),
-		feed: `${DOMAIN}/atom.xml`,
+		feedLinks: { atom: `${DOMAIN}/atom.xml` },
 		author: {
 			name: USER_NAME,
 			email: EMAIL,
@@ -30,19 +31,22 @@ export const get = async () => {
 		}
 	});
 
-	posts.list.forEach(({ metadata }) => {
+	posts.list.forEach(({ metadata, html }) => {
 		feed.addItem({
+			id: `${DOMAIN}/post/${metadata.path || metadata.number}`,
 			link: `${DOMAIN}/post/${metadata.path || metadata.number}`,
 			title: metadata.title,
 			date: new Date(metadata.updated || metadata.published),
 			published: new Date(metadata.published),
 			description: metadata.excerpt,
+			content: html,
 			category: metadata.labels
 		});
 	});
 	return {
+		status: 200,
 		headers: {
-			'Content-Type': 'application/xml'
+			'Content-Type': 'application/atom+xml'
 		},
 		body: feed.atom1()
 	};
