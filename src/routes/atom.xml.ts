@@ -2,6 +2,14 @@ import { fetchPosts } from '$lib/helper/fetchPosts';
 import { Feed } from 'feed';
 import { BIO, BLOG_NAME, DOMAIN, EMAIL, USER_NAME, LANGUAGE } from '$lib/constants';
 
+const createDescription = (html: string, maxLength: number = 300): string => {
+	return html
+		.replace(/<[^>]*>/g, '') // remove HTML tags
+		.replace(/\s+/g, ' ') // squish whitespace
+		.trim()
+		.slice(0, maxLength) + (html.length > maxLength ? '...' : '');
+};
+
 export const get = async () => {
 	if (!DOMAIN) {
 		return {
@@ -38,7 +46,7 @@ export const get = async () => {
 			title: metadata.title,
 			date: new Date(metadata.updated || metadata.published),
 			published: new Date(metadata.published),
-			description: metadata.excerpt,
+			description: metadata.excerpt || createDescription(html, 300),
 			content: html,
 			category: metadata.labels
 		});
