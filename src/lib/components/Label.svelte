@@ -14,6 +14,6 @@
 
 <a
 	class={clsx('font-normal!', selected === label && 'underline')}
-	href={selected === label || selected === label?.[0] ? '/' : `/label/${label}`}
+	href={selected === label || selected === label?.[0] ? '/' : `/label/${encodeURIComponent(typeof label === 'string' ? label : label[0])}`}
 	>#{label}{count ? `(${count})` : ''}</a
 >
