@@ -10,7 +10,7 @@
 			name: '知乎',
 			url: 'https://www.zhihu.com/people/epi3',
 			description:
-				'文字平台。各种文字类内容我都会发到知乎；其中值得永久保存的，会同步到个人网站归档。',
+				'文字平台。各种文字类内容我都会发到知乎；其中值得永久保存的，会同步到个人网站。实操原则可能是“不稀释「我」的浓度”。',
 		},
 		{ name: 'Bilibili', url: 'https://space.bilibili.com/472336190', description: '视频平台。' },
 		{
